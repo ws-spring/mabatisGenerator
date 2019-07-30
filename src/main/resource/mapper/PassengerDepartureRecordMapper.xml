@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.PassengerDepartureRecordMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.PassengerDepartureRecord" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="PASSENGER_NUM_ID" property="passengerNumId" jdbcType="BIGINT" />
+    <result column="START_TIME" property="startTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PASSENGER_NUM_ID, START_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.PASSENGER_DEPARTURE_RECORD
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RPOLICE.PASSENGER_DEPARTURE_RECORD
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.PassengerDepartureRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.PASSENGER_DEPARTURE_RECORD (PASSENGER_NUM_ID, START_TIME)
+    values (#{passengerNumId,jdbcType=BIGINT}, #{startTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.PassengerDepartureRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.PASSENGER_DEPARTURE_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="passengerNumId != null" >
+        PASSENGER_NUM_ID,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="passengerNumId != null" >
+        #{passengerNumId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.PassengerDepartureRecord" >
+    update RPOLICE.PASSENGER_DEPARTURE_RECORD
+    <set >
+      <if test="passengerNumId != null" >
+        PASSENGER_NUM_ID = #{passengerNumId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=DATE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.PassengerDepartureRecord" >
+    update RPOLICE.PASSENGER_DEPARTURE_RECORD
+    set PASSENGER_NUM_ID = #{passengerNumId,jdbcType=BIGINT},
+      START_TIME = #{startTime,jdbcType=DATE}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.FlightTicketMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.FlightTicket" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="PERSON_ID" property="personId" jdbcType="BIGINT" />
+    <result column="SCHDULE_ID" property="schduleId" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PERSON_ID, SCHDULE_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.FLIGHT_TICKET
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RPOLICE.FLIGHT_TICKET
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.FlightTicket" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.FLIGHT_TICKET (PERSON_ID, SCHDULE_ID)
+    values (#{personId,jdbcType=BIGINT}, #{schduleId,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.FlightTicket" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.FLIGHT_TICKET
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="personId != null" >
+        PERSON_ID,
+      </if>
+      <if test="schduleId != null" >
+        SCHDULE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="personId != null" >
+        #{personId,jdbcType=BIGINT},
+      </if>
+      <if test="schduleId != null" >
+        #{schduleId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.FlightTicket" >
+    update RPOLICE.FLIGHT_TICKET
+    <set >
+      <if test="personId != null" >
+        PERSON_ID = #{personId,jdbcType=BIGINT},
+      </if>
+      <if test="schduleId != null" >
+        SCHDULE_ID = #{schduleId,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.FlightTicket" >
+    update RPOLICE.FLIGHT_TICKET
+    set PERSON_ID = #{personId,jdbcType=BIGINT},
+      SCHDULE_ID = #{schduleId,jdbcType=CHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

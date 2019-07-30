@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.PortMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.Port" >
+    <id column="PORT_ID" property="portId" jdbcType="BIGINT" />
+    <result column="PORT_NAME" property="portName" jdbcType="VARCHAR" />
+    <result column="PORT_ADDR" property="portAddr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PORT_ID, PORT_NAME, PORT_ADDR
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.PORT
+    where PORT_ID = #{portId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RPOLICE.PORT
+    where PORT_ID = #{portId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.Port" >
+    insert into RPOLICE.PORT (PORT_ID, PORT_NAME, PORT_ADDR
+      )
+    values (#{portId,jdbcType=BIGINT}, #{portName,jdbcType=VARCHAR}, #{portAddr,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.Port" >
+    insert into RPOLICE.PORT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="portId != null" >
+        PORT_ID,
+      </if>
+      <if test="portName != null" >
+        PORT_NAME,
+      </if>
+      <if test="portAddr != null" >
+        PORT_ADDR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="portId != null" >
+        #{portId,jdbcType=BIGINT},
+      </if>
+      <if test="portName != null" >
+        #{portName,jdbcType=VARCHAR},
+      </if>
+      <if test="portAddr != null" >
+        #{portAddr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.Port" >
+    update RPOLICE.PORT
+    <set >
+      <if test="portName != null" >
+        PORT_NAME = #{portName,jdbcType=VARCHAR},
+      </if>
+      <if test="portAddr != null" >
+        PORT_ADDR = #{portAddr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PORT_ID = #{portId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.Port" >
+    update RPOLICE.PORT
+    set PORT_NAME = #{portName,jdbcType=VARCHAR},
+      PORT_ADDR = #{portAddr,jdbcType=VARCHAR}
+    where PORT_ID = #{portId,jdbcType=BIGINT}
+  </update>
+</mapper>

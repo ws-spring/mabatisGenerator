@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.ForceKickDrugRecordMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.ForceKickDrugRecord" >
+    <result column="CENTER_ID" property="centerId" jdbcType="BIGINT" />
+    <result column="PERSON_ID" property="personId" jdbcType="BIGINT" />
+    <result column="START_DATE" property="startDate" jdbcType="DATE" />
+    <result column="END_DATE" property="endDate" jdbcType="DATE" />
+  </resultMap>
+  <insert id="insert" parameterType="MyTest.bean.ForceKickDrugRecord" >
+    insert into RPOLICE.FORCE_KICK_DRUG_RECORD (CENTER_ID, PERSON_ID, START_DATE, 
+      END_DATE)
+    values (#{centerId,jdbcType=BIGINT}, #{personId,jdbcType=BIGINT}, #{startDate,jdbcType=DATE}, 
+      #{endDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.ForceKickDrugRecord" >
+    insert into RPOLICE.FORCE_KICK_DRUG_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="centerId != null" >
+        CENTER_ID,
+      </if>
+      <if test="personId != null" >
+        PERSON_ID,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="centerId != null" >
+        #{centerId,jdbcType=BIGINT},
+      </if>
+      <if test="personId != null" >
+        #{personId,jdbcType=BIGINT},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+</mapper>

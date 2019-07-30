@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.PersonPassPortRecordMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.PersonPassPortRecord" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="PORT_CODE" property="portCode" jdbcType="BIGINT" />
+    <result column="PERSON_ID" property="personId" jdbcType="BIGINT" />
+    <result column="PORT_ID" property="portId" jdbcType="BIGINT" />
+    <result column="PASS_TIME" property="passTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PORT_CODE, PERSON_ID, PORT_ID, PASS_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.PERSON_PASS_PORT_RECORD
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RPOLICE.PERSON_PASS_PORT_RECORD
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.PersonPassPortRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.PERSON_PASS_PORT_RECORD (PORT_CODE, PERSON_ID, PORT_ID, 
+      PASS_TIME)
+    values (#{portCode,jdbcType=BIGINT}, #{personId,jdbcType=BIGINT}, #{portId,jdbcType=BIGINT}, 
+      #{passTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.PersonPassPortRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.PERSON_PASS_PORT_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="portCode != null" >
+        PORT_CODE,
+      </if>
+      <if test="personId != null" >
+        PERSON_ID,
+      </if>
+      <if test="portId != null" >
+        PORT_ID,
+      </if>
+      <if test="passTime != null" >
+        PASS_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="portCode != null" >
+        #{portCode,jdbcType=BIGINT},
+      </if>
+      <if test="personId != null" >
+        #{personId,jdbcType=BIGINT},
+      </if>
+      <if test="portId != null" >
+        #{portId,jdbcType=BIGINT},
+      </if>
+      <if test="passTime != null" >
+        #{passTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.PersonPassPortRecord" >
+    update RPOLICE.PERSON_PASS_PORT_RECORD
+    <set >
+      <if test="portCode != null" >
+        PORT_CODE = #{portCode,jdbcType=BIGINT},
+      </if>
+      <if test="personId != null" >
+        PERSON_ID = #{personId,jdbcType=BIGINT},
+      </if>
+      <if test="portId != null" >
+        PORT_ID = #{portId,jdbcType=BIGINT},
+      </if>
+      <if test="passTime != null" >
+        PASS_TIME = #{passTime,jdbcType=DATE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.PersonPassPortRecord" >
+    update RPOLICE.PERSON_PASS_PORT_RECORD
+    set PORT_CODE = #{portCode,jdbcType=BIGINT},
+      PERSON_ID = #{personId,jdbcType=BIGINT},
+      PORT_ID = #{portId,jdbcType=BIGINT},
+      PASS_TIME = #{passTime,jdbcType=DATE}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

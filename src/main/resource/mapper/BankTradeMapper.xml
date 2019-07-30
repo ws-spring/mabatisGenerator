@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.BankTradeMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.BankTrade" >
+    <result column="ID" property="id" jdbcType="BIGINT" />
+    <result column="OUT_ACCOUNT" property="outAccount" jdbcType="BIGINT" />
+    <result column="IN_ACCOUNT" property="inAccount" jdbcType="BIGINT" />
+    <result column="TRADE_TIME" property="tradeTime" jdbcType="DATE" />
+    <result column="MONEY" property="money" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="MyTest.bean.BankTrade" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.BANK_TRADE (OUT_ACCOUNT, IN_ACCOUNT, TRADE_TIME, 
+      MONEY)
+    values (#{outAccount,jdbcType=BIGINT}, #{inAccount,jdbcType=BIGINT}, #{tradeTime,jdbcType=DATE}, 
+      #{money,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.BankTrade" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.BANK_TRADE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="outAccount != null" >
+        OUT_ACCOUNT,
+      </if>
+      <if test="inAccount != null" >
+        IN_ACCOUNT,
+      </if>
+      <if test="tradeTime != null" >
+        TRADE_TIME,
+      </if>
+      <if test="money != null" >
+        MONEY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="outAccount != null" >
+        #{outAccount,jdbcType=BIGINT},
+      </if>
+      <if test="inAccount != null" >
+        #{inAccount,jdbcType=BIGINT},
+      </if>
+      <if test="tradeTime != null" >
+        #{tradeTime,jdbcType=DATE},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.PersonMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.Person" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CARD_ID" property="cardId" jdbcType="CHAR" />
+    <result column="IS_MARRIED" property="isMarried" jdbcType="CHAR" />
+    <result column="DAD_ID" property="dadId" jdbcType="BIGINT" />
+    <result column="MOM_ID" property="momId" jdbcType="BIGINT" />
+    <result column="CONSORT_ID" property="consortId" jdbcType="BIGINT" />
+    <result column="MARRY_DATE" property="marryDate" jdbcType="DATE" />
+    <result column="BIRTH_DATE" property="birthDate" jdbcType="DATE" />
+    <result column="SEX_ID" property="sexId" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, `NAME`, CARD_ID, IS_MARRIED, DAD_ID, MOM_ID, CONSORT_ID, MARRY_DATE, BIRTH_DATE, 
+    SEX_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.PERSON
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RPOLICE.PERSON
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.Person" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.PERSON (`NAME`, CARD_ID, IS_MARRIED, 
+      DAD_ID, MOM_ID, CONSORT_ID, 
+      MARRY_DATE, BIRTH_DATE, SEX_ID)
+    values (#{name,jdbcType=VARCHAR}, #{cardId,jdbcType=CHAR}, #{isMarried,jdbcType=CHAR}, 
+      #{dadId,jdbcType=BIGINT}, #{momId,jdbcType=BIGINT}, #{consortId,jdbcType=BIGINT}, 
+      #{marryDate,jdbcType=DATE}, #{birthDate,jdbcType=DATE}, #{sexId,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.Person" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.PERSON
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        `NAME`,
+      </if>
+      <if test="cardId != null" >
+        CARD_ID,
+      </if>
+      <if test="isMarried != null" >
+        IS_MARRIED,
+      </if>
+      <if test="dadId != null" >
+        DAD_ID,
+      </if>
+      <if test="momId != null" >
+        MOM_ID,
+      </if>
+      <if test="consortId != null" >
+        CONSORT_ID,
+      </if>
+      <if test="marryDate != null" >
+        MARRY_DATE,
+      </if>
+      <if test="birthDate != null" >
+        BIRTH_DATE,
+      </if>
+      <if test="sexId != null" >
+        SEX_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=CHAR},
+      </if>
+      <if test="isMarried != null" >
+        #{isMarried,jdbcType=CHAR},
+      </if>
+      <if test="dadId != null" >
+        #{dadId,jdbcType=BIGINT},
+      </if>
+      <if test="momId != null" >
+        #{momId,jdbcType=BIGINT},
+      </if>
+      <if test="consortId != null" >
+        #{consortId,jdbcType=BIGINT},
+      </if>
+      <if test="marryDate != null" >
+        #{marryDate,jdbcType=DATE},
+      </if>
+      <if test="birthDate != null" >
+        #{birthDate,jdbcType=DATE},
+      </if>
+      <if test="sexId != null" >
+        #{sexId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.Person" >
+    update RPOLICE.PERSON
+    <set >
+      <if test="name != null" >
+        `NAME` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        CARD_ID = #{cardId,jdbcType=CHAR},
+      </if>
+      <if test="isMarried != null" >
+        IS_MARRIED = #{isMarried,jdbcType=CHAR},
+      </if>
+      <if test="dadId != null" >
+        DAD_ID = #{dadId,jdbcType=BIGINT},
+      </if>
+      <if test="momId != null" >
+        MOM_ID = #{momId,jdbcType=BIGINT},
+      </if>
+      <if test="consortId != null" >
+        CONSORT_ID = #{consortId,jdbcType=BIGINT},
+      </if>
+      <if test="marryDate != null" >
+        MARRY_DATE = #{marryDate,jdbcType=DATE},
+      </if>
+      <if test="birthDate != null" >
+        BIRTH_DATE = #{birthDate,jdbcType=DATE},
+      </if>
+      <if test="sexId != null" >
+        SEX_ID = #{sexId,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.Person" >
+    update RPOLICE.PERSON
+    set `NAME` = #{name,jdbcType=VARCHAR},
+      CARD_ID = #{cardId,jdbcType=CHAR},
+      IS_MARRIED = #{isMarried,jdbcType=CHAR},
+      DAD_ID = #{dadId,jdbcType=BIGINT},
+      MOM_ID = #{momId,jdbcType=BIGINT},
+      CONSORT_ID = #{consortId,jdbcType=BIGINT},
+      MARRY_DATE = #{marryDate,jdbcType=DATE},
+      BIRTH_DATE = #{birthDate,jdbcType=DATE},
+      SEX_ID = #{sexId,jdbcType=CHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.DrugCaseMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.DrugCase" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="CASE_NAME" property="caseName" jdbcType="VARCHAR" />
+    <result column="ADDR_ID" property="addrId" jdbcType="BIGINT" />
+    <result column="CASE_TIME" property="caseTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CASE_NAME, ADDR_ID, CASE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.DRUG_CASE
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RPOLICE.DRUG_CASE
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.DrugCase" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.DRUG_CASE (CASE_NAME, ADDR_ID, CASE_TIME
+      )
+    values (#{caseName,jdbcType=VARCHAR}, #{addrId,jdbcType=BIGINT}, #{caseTime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.DrugCase" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.DRUG_CASE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="caseName != null" >
+        CASE_NAME,
+      </if>
+      <if test="addrId != null" >
+        ADDR_ID,
+      </if>
+      <if test="caseTime != null" >
+        CASE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="caseName != null" >
+        #{caseName,jdbcType=VARCHAR},
+      </if>
+      <if test="addrId != null" >
+        #{addrId,jdbcType=BIGINT},
+      </if>
+      <if test="caseTime != null" >
+        #{caseTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.DrugCase" >
+    update RPOLICE.DRUG_CASE
+    <set >
+      <if test="caseName != null" >
+        CASE_NAME = #{caseName,jdbcType=VARCHAR},
+      </if>
+      <if test="addrId != null" >
+        ADDR_ID = #{addrId,jdbcType=BIGINT},
+      </if>
+      <if test="caseTime != null" >
+        CASE_TIME = #{caseTime,jdbcType=DATE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.DrugCase" >
+    update RPOLICE.DRUG_CASE
+    set CASE_NAME = #{caseName,jdbcType=VARCHAR},
+      ADDR_ID = #{addrId,jdbcType=BIGINT},
+      CASE_TIME = #{caseTime,jdbcType=DATE}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

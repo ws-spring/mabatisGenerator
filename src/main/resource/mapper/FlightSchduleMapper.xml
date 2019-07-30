@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.FlightSchduleMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.FlightSchdule" >
+    <result column="ID" property="id" jdbcType="BIGINT" />
+    <result column="FLIGHT_NUM" property="flightNum" jdbcType="BIGINT" />
+    <result column="START_TIME" property="startTime" jdbcType="DATE" />
+  </resultMap>
+  <insert id="insert" parameterType="MyTest.bean.FlightSchdule" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.FLIGHT_SCHDULE (FLIGHT_NUM, START_TIME)
+    values (#{flightNum,jdbcType=BIGINT}, #{startTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.FlightSchdule" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.FLIGHT_SCHDULE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="flightNum != null" >
+        FLIGHT_NUM,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="flightNum != null" >
+        #{flightNum,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+</mapper>

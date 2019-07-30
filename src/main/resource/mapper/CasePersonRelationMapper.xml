@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.CasePersonRelationMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.CasePersonRelation" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="PERSON_ID" property="personId" jdbcType="BIGINT" />
+    <result column="CASE_ID" property="caseId" jdbcType="BIGINT" />
+    <result column="DIC_ID" property="dicId" jdbcType="INTEGER" />
+    <result column="RELATION_NAME" property="relationName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PERSON_ID, CASE_ID, DIC_ID, RELATION_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.CASE_PERSON_RELATION
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RPOLICE.CASE_PERSON_RELATION
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.CasePersonRelation" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.CASE_PERSON_RELATION (PERSON_ID, CASE_ID, DIC_ID, 
+      RELATION_NAME)
+    values (#{personId,jdbcType=BIGINT}, #{caseId,jdbcType=BIGINT}, #{dicId,jdbcType=INTEGER}, 
+      #{relationName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.CasePersonRelation" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.CASE_PERSON_RELATION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="personId != null" >
+        PERSON_ID,
+      </if>
+      <if test="caseId != null" >
+        CASE_ID,
+      </if>
+      <if test="dicId != null" >
+        DIC_ID,
+      </if>
+      <if test="relationName != null" >
+        RELATION_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="personId != null" >
+        #{personId,jdbcType=BIGINT},
+      </if>
+      <if test="caseId != null" >
+        #{caseId,jdbcType=BIGINT},
+      </if>
+      <if test="dicId != null" >
+        #{dicId,jdbcType=INTEGER},
+      </if>
+      <if test="relationName != null" >
+        #{relationName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.CasePersonRelation" >
+    update RPOLICE.CASE_PERSON_RELATION
+    <set >
+      <if test="personId != null" >
+        PERSON_ID = #{personId,jdbcType=BIGINT},
+      </if>
+      <if test="caseId != null" >
+        CASE_ID = #{caseId,jdbcType=BIGINT},
+      </if>
+      <if test="dicId != null" >
+        DIC_ID = #{dicId,jdbcType=INTEGER},
+      </if>
+      <if test="relationName != null" >
+        RELATION_NAME = #{relationName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.CasePersonRelation" >
+    update RPOLICE.CASE_PERSON_RELATION
+    set PERSON_ID = #{personId,jdbcType=BIGINT},
+      CASE_ID = #{caseId,jdbcType=BIGINT},
+      DIC_ID = #{dicId,jdbcType=INTEGER},
+      RELATION_NAME = #{relationName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.PhoneCallMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.PhoneCall" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="CALL_NUM_ID" property="callNumId" jdbcType="BIGINT" />
+    <result column="CALLED_NUM_ID" property="calledNumId" jdbcType="BIGINT" />
+    <result column="START_TIME" property="startTime" jdbcType="DATE" />
+    <result column="END_TIME" property="endTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CALL_NUM_ID, CALLED_NUM_ID, START_TIME, END_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.PHONE_CALL
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RPOLICE.PHONE_CALL
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.PhoneCall" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.PHONE_CALL (CALL_NUM_ID, CALLED_NUM_ID, START_TIME, 
+      END_TIME)
+    values (#{callNumId,jdbcType=BIGINT}, #{calledNumId,jdbcType=BIGINT}, #{startTime,jdbcType=DATE}, 
+      #{endTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.PhoneCall" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.PHONE_CALL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="callNumId != null" >
+        CALL_NUM_ID,
+      </if>
+      <if test="calledNumId != null" >
+        CALLED_NUM_ID,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="callNumId != null" >
+        #{callNumId,jdbcType=BIGINT},
+      </if>
+      <if test="calledNumId != null" >
+        #{calledNumId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.PhoneCall" >
+    update RPOLICE.PHONE_CALL
+    <set >
+      <if test="callNumId != null" >
+        CALL_NUM_ID = #{callNumId,jdbcType=BIGINT},
+      </if>
+      <if test="calledNumId != null" >
+        CALLED_NUM_ID = #{calledNumId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=DATE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.PhoneCall" >
+    update RPOLICE.PHONE_CALL
+    set CALL_NUM_ID = #{callNumId,jdbcType=BIGINT},
+      CALLED_NUM_ID = #{calledNumId,jdbcType=BIGINT},
+      START_TIME = #{startTime,jdbcType=DATE},
+      END_TIME = #{endTime,jdbcType=DATE}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

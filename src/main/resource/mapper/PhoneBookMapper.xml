@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.PhoneBookMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.PhoneBook" >
+    <result column="ID" property="id" jdbcType="BIGINT" />
+    <result column="PERSON_ID" property="personId" jdbcType="BIGINT" />
+    <result column="SAVED_PERSON_ID" property="savedPersonId" jdbcType="BIGINT" />
+  </resultMap>
+  <insert id="insert" parameterType="MyTest.bean.PhoneBook" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.PHONE_BOOK (PERSON_ID, SAVED_PERSON_ID)
+    values (#{personId,jdbcType=BIGINT}, #{savedPersonId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.PhoneBook" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.PHONE_BOOK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="personId != null" >
+        PERSON_ID,
+      </if>
+      <if test="savedPersonId != null" >
+        SAVED_PERSON_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="personId != null" >
+        #{personId,jdbcType=BIGINT},
+      </if>
+      <if test="savedPersonId != null" >
+        #{savedPersonId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

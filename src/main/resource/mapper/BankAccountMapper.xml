@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.BankAccountMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.BankAccount" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="PERSON_ID" property="personId" jdbcType="BIGINT" />
+    <result column="银行账号" property="银行账号" jdbcType="VARCHAR" />
+    <result column="开户行" property="开户行" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PERSON_ID, 银行账号, 开户行
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.BANK_ACCOUNT
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RPOLICE.BANK_ACCOUNT
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.BankAccount" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.BANK_ACCOUNT (PERSON_ID, 银行账号, 开户行
+      )
+    values (#{personId,jdbcType=BIGINT}, #{银行账号,jdbcType=VARCHAR}, #{开户行,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.BankAccount" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.BANK_ACCOUNT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="personId != null" >
+        PERSON_ID,
+      </if>
+      <if test="银行账号 != null" >
+        银行账号,
+      </if>
+      <if test="开户行 != null" >
+        开户行,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="personId != null" >
+        #{personId,jdbcType=BIGINT},
+      </if>
+      <if test="银行账号 != null" >
+        #{银行账号,jdbcType=VARCHAR},
+      </if>
+      <if test="开户行 != null" >
+        #{开户行,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.BankAccount" >
+    update RPOLICE.BANK_ACCOUNT
+    <set >
+      <if test="personId != null" >
+        PERSON_ID = #{personId,jdbcType=BIGINT},
+      </if>
+      <if test="银行账号 != null" >
+        银行账号 = #{银行账号,jdbcType=VARCHAR},
+      </if>
+      <if test="开户行 != null" >
+        开户行 = #{开户行,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.BankAccount" >
+    update RPOLICE.BANK_ACCOUNT
+    set PERSON_ID = #{personId,jdbcType=BIGINT},
+      银行账号 = #{银行账号,jdbcType=VARCHAR},
+      开户行 = #{开户行,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

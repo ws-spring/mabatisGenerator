@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.CommunityKickDrugRecordMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.CommunityKickDrugRecord" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="CENTER_ID" property="centerId" jdbcType="BIGINT" />
+    <result column="PERSON_ID" property="personId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CENTER_ID, PERSON_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.COMMUNITY_KICK_DRUG_RECORD
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RPOLICE.COMMUNITY_KICK_DRUG_RECORD
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.CommunityKickDrugRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.COMMUNITY_KICK_DRUG_RECORD (CENTER_ID, PERSON_ID)
+    values (#{centerId,jdbcType=BIGINT}, #{personId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.CommunityKickDrugRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.COMMUNITY_KICK_DRUG_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="centerId != null" >
+        CENTER_ID,
+      </if>
+      <if test="personId != null" >
+        PERSON_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="centerId != null" >
+        #{centerId,jdbcType=BIGINT},
+      </if>
+      <if test="personId != null" >
+        #{personId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.CommunityKickDrugRecord" >
+    update RPOLICE.COMMUNITY_KICK_DRUG_RECORD
+    <set >
+      <if test="centerId != null" >
+        CENTER_ID = #{centerId,jdbcType=BIGINT},
+      </if>
+      <if test="personId != null" >
+        PERSON_ID = #{personId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.CommunityKickDrugRecord" >
+    update RPOLICE.COMMUNITY_KICK_DRUG_RECORD
+    set CENTER_ID = #{centerId,jdbcType=BIGINT},
+      PERSON_ID = #{personId,jdbcType=BIGINT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.PassengerSchduleMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.PassengerSchdule" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="PASSENGER_NUM" property="passengerNum" jdbcType="VARCHAR" />
+    <result column="SOURCE_CITY" property="sourceCity" jdbcType="BIGINT" />
+    <result column="TARGET_CITY" property="targetCity" jdbcType="BIGINT" />
+    <result column="CAR_ID" property="carId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PASSENGER_NUM, SOURCE_CITY, TARGET_CITY, CAR_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.PASSENGER_SCHDULE
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RPOLICE.PASSENGER_SCHDULE
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.PassengerSchdule" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.PASSENGER_SCHDULE (PASSENGER_NUM, SOURCE_CITY, TARGET_CITY, 
+      CAR_ID)
+    values (#{passengerNum,jdbcType=VARCHAR}, #{sourceCity,jdbcType=BIGINT}, #{targetCity,jdbcType=BIGINT}, 
+      #{carId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.PassengerSchdule" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.PASSENGER_SCHDULE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="passengerNum != null" >
+        PASSENGER_NUM,
+      </if>
+      <if test="sourceCity != null" >
+        SOURCE_CITY,
+      </if>
+      <if test="targetCity != null" >
+        TARGET_CITY,
+      </if>
+      <if test="carId != null" >
+        CAR_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="passengerNum != null" >
+        #{passengerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceCity != null" >
+        #{sourceCity,jdbcType=BIGINT},
+      </if>
+      <if test="targetCity != null" >
+        #{targetCity,jdbcType=BIGINT},
+      </if>
+      <if test="carId != null" >
+        #{carId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.PassengerSchdule" >
+    update RPOLICE.PASSENGER_SCHDULE
+    <set >
+      <if test="passengerNum != null" >
+        PASSENGER_NUM = #{passengerNum,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceCity != null" >
+        SOURCE_CITY = #{sourceCity,jdbcType=BIGINT},
+      </if>
+      <if test="targetCity != null" >
+        TARGET_CITY = #{targetCity,jdbcType=BIGINT},
+      </if>
+      <if test="carId != null" >
+        CAR_ID = #{carId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.PassengerSchdule" >
+    update RPOLICE.PASSENGER_SCHDULE
+    set PASSENGER_NUM = #{passengerNum,jdbcType=VARCHAR},
+      SOURCE_CITY = #{sourceCity,jdbcType=BIGINT},
+      TARGET_CITY = #{targetCity,jdbcType=BIGINT},
+      CAR_ID = #{carId,jdbcType=BIGINT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

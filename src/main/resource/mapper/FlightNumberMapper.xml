@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.FlightNumberMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.FlightNumber" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="FLIGHT_NUM" property="flightNum" jdbcType="VARCHAR" />
+    <result column="SOURCE_CITY" property="sourceCity" jdbcType="BIGINT" />
+    <result column="TARGET_CITY" property="targetCity" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, FLIGHT_NUM, SOURCE_CITY, TARGET_CITY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.FLIGHT_NUMBER
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RPOLICE.FLIGHT_NUMBER
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.FlightNumber" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.FLIGHT_NUMBER (FLIGHT_NUM, SOURCE_CITY, TARGET_CITY
+      )
+    values (#{flightNum,jdbcType=VARCHAR}, #{sourceCity,jdbcType=BIGINT}, #{targetCity,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.FlightNumber" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.FLIGHT_NUMBER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="flightNum != null" >
+        FLIGHT_NUM,
+      </if>
+      <if test="sourceCity != null" >
+        SOURCE_CITY,
+      </if>
+      <if test="targetCity != null" >
+        TARGET_CITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="flightNum != null" >
+        #{flightNum,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceCity != null" >
+        #{sourceCity,jdbcType=BIGINT},
+      </if>
+      <if test="targetCity != null" >
+        #{targetCity,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.FlightNumber" >
+    update RPOLICE.FLIGHT_NUMBER
+    <set >
+      <if test="flightNum != null" >
+        FLIGHT_NUM = #{flightNum,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceCity != null" >
+        SOURCE_CITY = #{sourceCity,jdbcType=BIGINT},
+      </if>
+      <if test="targetCity != null" >
+        TARGET_CITY = #{targetCity,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.FlightNumber" >
+    update RPOLICE.FLIGHT_NUMBER
+    set FLIGHT_NUM = #{flightNum,jdbcType=VARCHAR},
+      SOURCE_CITY = #{sourceCity,jdbcType=BIGINT},
+      TARGET_CITY = #{targetCity,jdbcType=BIGINT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

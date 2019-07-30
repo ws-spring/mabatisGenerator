@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.DictInforMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.DictInfor" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="TYPE_ID" property="typeId" jdbcType="INTEGER" />
+    <result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TYPE_ID, TYPE_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.DICT_INFOR
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from RPOLICE.DICT_INFOR
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.DictInfor" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.DICT_INFOR (TYPE_ID, TYPE_NAME)
+    values (#{typeId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.DictInfor" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.DICT_INFOR
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="typeId != null" >
+        TYPE_ID,
+      </if>
+      <if test="typeName != null" >
+        TYPE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.DictInfor" >
+    update RPOLICE.DICT_INFOR
+    <set >
+      <if test="typeId != null" >
+        TYPE_ID = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null" >
+        TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.DictInfor" >
+    update RPOLICE.DICT_INFOR
+    set TYPE_ID = #{typeId,jdbcType=INTEGER},
+      TYPE_NAME = #{typeName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

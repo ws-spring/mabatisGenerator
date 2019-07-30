@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.ExpressMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.Express" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="SENDER_PERSON_ID" property="senderPersonId" jdbcType="BIGINT" />
+    <result column="RECEIVER_PERSON_ID" property="receiverPersonId" jdbcType="BIGINT" />
+    <result column="S_CITY_CODE" property="sCityCode" jdbcType="BIGINT" />
+    <result column="R_CITY_CODE" property="rCityCode" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SENDER_PERSON_ID, RECEIVER_PERSON_ID, S_CITY_CODE, R_CITY_CODE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.EXPRESS
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RPOLICE.EXPRESS
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.Express" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.EXPRESS (SENDER_PERSON_ID, RECEIVER_PERSON_ID, S_CITY_CODE, 
+      R_CITY_CODE)
+    values (#{senderPersonId,jdbcType=BIGINT}, #{receiverPersonId,jdbcType=BIGINT}, #{sCityCode,jdbcType=BIGINT}, 
+      #{rCityCode,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.Express" useGeneratedKeys="true" keyProperty="id" >
+    insert into RPOLICE.EXPRESS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="senderPersonId != null" >
+        SENDER_PERSON_ID,
+      </if>
+      <if test="receiverPersonId != null" >
+        RECEIVER_PERSON_ID,
+      </if>
+      <if test="sCityCode != null" >
+        S_CITY_CODE,
+      </if>
+      <if test="rCityCode != null" >
+        R_CITY_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="senderPersonId != null" >
+        #{senderPersonId,jdbcType=BIGINT},
+      </if>
+      <if test="receiverPersonId != null" >
+        #{receiverPersonId,jdbcType=BIGINT},
+      </if>
+      <if test="sCityCode != null" >
+        #{sCityCode,jdbcType=BIGINT},
+      </if>
+      <if test="rCityCode != null" >
+        #{rCityCode,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.Express" >
+    update RPOLICE.EXPRESS
+    <set >
+      <if test="senderPersonId != null" >
+        SENDER_PERSON_ID = #{senderPersonId,jdbcType=BIGINT},
+      </if>
+      <if test="receiverPersonId != null" >
+        RECEIVER_PERSON_ID = #{receiverPersonId,jdbcType=BIGINT},
+      </if>
+      <if test="sCityCode != null" >
+        S_CITY_CODE = #{sCityCode,jdbcType=BIGINT},
+      </if>
+      <if test="rCityCode != null" >
+        R_CITY_CODE = #{rCityCode,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.Express" >
+    update RPOLICE.EXPRESS
+    set SENDER_PERSON_ID = #{senderPersonId,jdbcType=BIGINT},
+      RECEIVER_PERSON_ID = #{receiverPersonId,jdbcType=BIGINT},
+      S_CITY_CODE = #{sCityCode,jdbcType=BIGINT},
+      R_CITY_CODE = #{rCityCode,jdbcType=BIGINT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

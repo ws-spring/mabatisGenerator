@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="MyTest.dao.CityMapper" >
+  <resultMap id="BaseResultMap" type="MyTest.bean.City" >
+    <id column="CITY_CODE" property="cityCode" jdbcType="BIGINT" />
+    <result column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CITY_CODE, CITY_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from RPOLICE.CITY
+    where CITY_CODE = #{cityCode,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RPOLICE.CITY
+    where CITY_CODE = #{cityCode,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="MyTest.bean.City" >
+    insert into RPOLICE.CITY (CITY_CODE, CITY_NAME)
+    values (#{cityCode,jdbcType=BIGINT}, #{cityName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="MyTest.bean.City" >
+    insert into RPOLICE.CITY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cityCode != null" >
+        CITY_CODE,
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=BIGINT},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="MyTest.bean.City" >
+    update RPOLICE.CITY
+    <set >
+      <if test="cityName != null" >
+        CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CITY_CODE = #{cityCode,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="MyTest.bean.City" >
+    update RPOLICE.CITY
+    set CITY_NAME = #{cityName,jdbcType=VARCHAR}
+    where CITY_CODE = #{cityCode,jdbcType=BIGINT}
+  </update>
+</mapper>
